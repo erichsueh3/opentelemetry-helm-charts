@@ -124,6 +124,7 @@ securityContext:
 
 collector:
   enabled: false
+  serviceAccount: 
   region:
   amp:
     enabled: false

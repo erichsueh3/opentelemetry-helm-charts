@@ -6,7 +6,7 @@ metadata:
   name: my-collector
 spec:
   mode: deployment
-  serviceAccount: adot-demo
+  serviceAccount: {{ .Values.collector.serviceAccount }}
 {{- if or .Values.collector.amp.enabled .Values.collector.cloudwatch.enabled }}
   podAnnotations:
     prometheus.io/scrape: 'true'

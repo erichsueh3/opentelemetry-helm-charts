@@ -887,6 +887,16 @@
                             true
                         ]
                     },
+                    "serviceAccount": {
+                        "type": "string",
+                        "default": "",
+                        "title": "The serviceAccount Schema",
+                        "pattern": "^[a-z0-9]([a-z0-9-\\.]{0,251}[a-z0-9])?$",
+                        "$comment": "the name of a service account must be a vaild DNS subdomain name, see https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names",
+                        "examples": [
+                            "adot-collector"
+                        ]
+                    },
                     "region": {
                         "type": "string",
                         "default": "",
@@ -898,6 +908,7 @@
                     }
                 },
                 "required": [
+                    "serviceAccount",
                     "region"
                 ]
             },
@@ -1002,6 +1013,7 @@
                                 "default": "",
                                 "title": "The clusterName Schema",
                                 "pattern": "^[A-Za-z0-9][A-Za-z0-9-_]{0,99}$",
+                                "$comment": "For cluster name constraints, see https://docs.aws.amazon.com/eks/latest/APIReference/API_CreateCluster.html",
                                 "examples": [
                                     "my-cluster"
                                 ]
