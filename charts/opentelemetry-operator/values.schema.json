@@ -17,7 +17,8 @@
         "tolerations",
         "nodeSelector",
         "hostNetwork",
-        "securityContext"
+        "securityContext",
+        "collector"
     ],
     "properties": {
         "replicaCount": {
@@ -858,6 +859,123 @@
                 "runAsUser": 65534,
                 "fsGroup": 65534
             }]
+        },
+        "collector": {
+            "type": "object",
+            "default": {},
+            "title": "The collector Schema",
+            "required": [
+                "region",
+                "amp",
+                "cloudwatch"
+            ],
+            "properties": {
+                "region": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The region Schema",
+                    "examples": [
+                        "us-west-2"
+                    ]
+                },
+                "amp": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The amp Schema",
+                    "required": [
+                       "enabled",
+                       "remoteWriteEndpoint"
+                    ],
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The enabled Schema",
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "remoteWriteEndpoint": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The remoteWriteEndpoint Schema",
+                            "examples": [
+                                "https://aps-workspaces.us-west-2.amazonaws.com/workspaces/ws-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/api/v1/remote_write"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "enabled": true,
+                        "remoteWriteEndpoint": "https://aps-workspaces.us-west-2.amazonaws.com/workspaces/ws-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/api/v1/remote_write"
+                    }]
+                },
+                "cloudwatch": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The cloudwatch Schema",
+                    "required": [
+                       "enabled",
+                       "clusterName"
+                    ],
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The enabled Schema",
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "clusterName": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The clusterName Schema",
+                            "examples": [
+                                "my-cluster"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "enabled": true,
+                        "clusterName": "my-cluster"
+                    }]
+                },
+                "xray": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The xray Schema",
+                    "required": [
+                       "enabled"
+                    ],
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The enabled Schema",
+                            "examples": [
+                                true
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "enabled": true
+                    }]
+                }
+            },
+            "examples": [{
+                "region": "us-west-2",
+                "amp": {
+                    "enabled": true,
+                    "remoteWriteEndpoint": "https://aps-workspaces.us-west-2.amazonaws.com/workspaces/ws-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/api/v1/remote_write"
+                },
+                "cloudwatch": {
+                    "enabled": true,
+                    "clusterName": "my-cluster"
+                },
+                "xray": {
+                    "enabled": true
+                }
+            }]
         }
     },
     "examples": [{
@@ -955,6 +1073,20 @@
             "runAsNonRoot": true,
             "runAsUser": 65534,
             "fsGroup": 65534
+        },
+        "collector": {
+            "region": "us-west-2",
+            "amp": {
+                "enabled": true,
+                "remoteWriteEndpoint": "https://aps-workspaces.us-west-2.amazonaws.com/workspaces/ws-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/api/v1/remote_write"
+            },
+            "cloudwatch": {
+                "enabled": true,
+                "clusterName": "my-cluster"
+            },
+            "xray": {
+                "enabled": true
+            }
         }
     }]
 }
