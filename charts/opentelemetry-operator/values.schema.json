@@ -865,17 +865,49 @@
             "default": {},
             "title": "The collector Schema",
             "required": [
-                "region",
+                "enabled",
                 "amp",
-                "cloudwatch"
+                "cloudwatch",
+                "xray"
             ],
+            "if": {
+                "properties": {
+                    "enabled": {
+                        "const": true
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "enabled": {
+                        "type": "boolean",
+                        "default": false,
+                        "title": "The enabled Schema",
+                        "examples": [
+                            true
+                        ]
+                    },
+                    "region": {
+                        "type": "string",
+                        "default": "",
+                        "title": "The region Schema",
+                        "pattern": "^(us(-gov)?|ap|ca|cn|eu|sa)-(central|(north|south)?(east|west)?)-[0-9]$",
+                        "examples": [
+                            "us-west-2"
+                        ]
+                    }
+                },
+                "required": [
+                    "region"
+                ]
+            },
             "properties": {
-                "region": {
-                    "type": "string",
-                    "default": "",
-                    "title": "The region Schema",
+                "enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The enabled Schema",
                     "examples": [
-                        "us-west-2"
+                        true
                     ]
                 },
                 "amp": {
@@ -883,8 +915,7 @@
                     "default": {},
                     "title": "The amp Schema",
                     "required": [
-                       "enabled",
-                       "remoteWriteEndpoint"
+                       "enabled"
                     ],
                     "properties": {
                         "enabled": {
@@ -894,15 +925,38 @@
                             "examples": [
                                 true
                             ]
-                        },
-                        "remoteWriteEndpoint": {
-                            "type": "string",
-                            "default": "",
-                            "title": "The remoteWriteEndpoint Schema",
-                            "examples": [
-                                "https://aps-workspaces.us-west-2.amazonaws.com/workspaces/ws-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/api/v1/remote_write"
-                            ]
                         }
+                    },
+                    "if": {
+                        "properties": {
+                            "enabled": {
+                                "const": true
+                            }
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "enabled": {
+                                "type": "boolean",
+                                "default": false,
+                                "title": "The enabled Schema",
+                                "examples": [
+                                    true
+                                ]
+                            },
+                            "remoteWriteEndpoint": {
+                                "type": "string",
+                                "default": "",
+                                "title": "The remoteWriteEndpoint Schema",
+                                "pattern": "^https://aps-workspaces\\.(us(-gov)?|ap|ca|cn|eu|sa)-(central|(north|south)?(east|west)?)-[0-9]\\.amazonaws\\.com/workspaces/ws-[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}/api/v1/remote_write$",
+                                "examples": [
+                                    "https://aps-workspaces.us-west-2.amazonaws.com/workspaces/ws-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/api/v1/remote_write"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "remoteWriteEndpoint"
+                        ]
                     },
                     "examples": [{
                         "enabled": true,
@@ -914,8 +968,7 @@
                     "default": {},
                     "title": "The cloudwatch Schema",
                     "required": [
-                       "enabled",
-                       "clusterName"
+                       "enabled"
                     ],
                     "properties": {
                         "enabled": {
@@ -925,15 +978,38 @@
                             "examples": [
                                 true
                             ]
-                        },
-                        "clusterName": {
-                            "type": "string",
-                            "default": "",
-                            "title": "The clusterName Schema",
-                            "examples": [
-                                "my-cluster"
-                            ]
                         }
+                    },
+                    "if": {
+                        "properties": {
+                            "enabled": {
+                                "const": true
+                            }
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "enabled": {
+                                "type": "boolean",
+                                "default": false,
+                                "title": "The enabled Schema",
+                                "examples": [
+                                    true
+                                ]
+                            },
+                            "clusterName": {
+                                "type": "string",
+                                "default": "",
+                                "title": "The clusterName Schema",
+                                "pattern": "^[A-Za-z0-9][A-Za-z0-9-_]{0,99}$",
+                                "examples": [
+                                    "my-cluster"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "clusterName"
+                        ]
                     },
                     "examples": [{
                         "enabled": true,

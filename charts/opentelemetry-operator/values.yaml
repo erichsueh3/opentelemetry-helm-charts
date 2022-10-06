@@ -123,6 +123,7 @@ securityContext:
   fsGroup: 65534
 
 collector:
+  enabled: false
   region:
   amp:
     enabled: false

@@ -1,4 +1,4 @@
-{{- if or .Values.collector.amp.enabled .Values.collector.cloudwatch.enabled .Values.collector.xray.enabled }}
+{{- if and (.Values.collector.enabled) (or .Values.collector.amp.enabled .Values.collector.cloudwatch.enabled .Values.collector.xray.enabled) }}
 ---
 apiVersion: opentelemetry.io/v1alpha1
 kind: OpenTelemetryCollector
